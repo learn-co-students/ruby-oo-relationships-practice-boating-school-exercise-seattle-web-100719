@@ -1,6 +1,6 @@
 require_relative 'boatingtest' 
 require_relative 'instructor'
-require 'pry'
+# require 'pry'
 
 class Student
 
@@ -12,19 +12,12 @@ class Student
         @@all << self
     end 
 
-    def add_boating_test(student, boating_test_name, boating_test_status, instructor) #why are we adding(initializing???) a boat test here when we're creating it in the boatingtest class?????
-        @student = student
-        @boating_test_name = boating_test_name
-        @boating_test_status = boating_test_status
-        @instructor = instructor
+    def add_boating_test(boating_test_name, boating_test_status, instructor) 
+        BoatingTest.new(self, boating_test_name, boating_test_status, instructor)
     end 
 
-    def find_student(first_name) #output the student Object - what is the student Object? Only the first name?? 
-        Student.all.each do |student_first_name|
-            if student_first_name == first_name
-                student_first_name.first_name #what do we want to return?
-            end 
-        end 
+    def find_student(first_name)  
+        Student.all.find { |student| student.first_name == first_name }
     end 
 
     def grade_percentage #output = float
@@ -34,11 +27,11 @@ class Student
     #divide the number of tests passed by total of tests
         passed_tests = []
         BoatingTest.all.each do |boating_test|
-            if boating_test.boating_test_status = "passed"
+            if boating_test.boating_test_status == "passed"
                 passed_tests << boating_test.boating_test_status
-            end 
-        passed_tests.length / BoatingTest.all.boating_test_status.length 
+            end  
         end
+        passed_tests.length / BoatingTest.all.length
     end  
 
     def self.all
@@ -47,5 +40,5 @@ class Student
 
 end
 
-binding.pry
-0
+# binding.pry
+# 0
